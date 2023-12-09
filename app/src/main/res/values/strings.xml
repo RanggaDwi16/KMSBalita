@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">KMS App</string>
+    <string-array name="role">
+        <item>Admin</item>
+        <item>Kader</item>
+    </string-array>
+
+    <string-array name="posyandu">
+        <item>Posyandu 1</item>
+        <item>Posyandu 2</item>
+        <item>Posyandu 3</item>
+        <item>Posyandu 4</item>
+        <item>Posyandu 5</item>
+    </string-array>
+
+    <string-array name="puskesmas">
+        <item>Puskesmas 1</item>
+        <item>Puskesmas 2</item>
+        <item>Puskesmas 3</item>
+        <item>Puskesmas 4</item>
+        <item>Puskesmas 5</item>
+    </string-array>
+</resources>
