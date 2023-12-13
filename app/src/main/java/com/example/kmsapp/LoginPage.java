@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -52,7 +50,7 @@ public class LoginPage extends AppCompatActivity {
         mContext = LoginPage.this;
         if(!mUserToken.equals("")){
             Log.d(TAG, "onCreate: mUserToken: " + mUserToken);
-            startActivity(new Intent(mContext, HomePageAdmin.class));
+            startActivity(new Intent(mContext, HomePage.class));
             finish();
         }
 
@@ -101,7 +99,7 @@ public class LoginPage extends AppCompatActivity {
         String password = _password.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)){
-            _email.setError("NIP is required.");
+            _email.setError("Email is required.");
             return;
         }
         if(TextUtils.isEmpty(password)){
@@ -131,7 +129,7 @@ public class LoginPage extends AppCompatActivity {
                         mSharedPreferences.edit().putString(Config.SP_USER_HP, payload.optString("USER_HP")).commit();
                         mSharedPreferences.edit().putString(Config.SP_USER_EMAIL, payload.optString("USER_EMAIL")).commit();
                         mSharedPreferences.edit().putString(Config.SP_USER_AVATAR_PATH, payload.optString("USER_AVATAR_PATH")).commit();
-                        startActivity(new Intent(mContext, HomePageAdmin.class));
+                        startActivity(new Intent(mContext, HomePage.class));
                         finish();
                     }
                 }

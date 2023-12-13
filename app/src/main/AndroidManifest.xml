@@ -30,7 +30,7 @@
             android:name=".TambahKader"
             android:exported="false" />
         <activity
-            android:name=".HomePageAdmin"
+            android:name=".HomePage"
             android:exported="false" />
         <activity
             android:name=".SplashScreen"
