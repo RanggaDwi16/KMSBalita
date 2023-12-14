@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<TableRow
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/white"
-    android:padding="5dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
 
     <TextView
-        android:id="@+id/tvNama"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -15,16 +17,14 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvJK"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="L"
+        android:text="Laki-Laki"
         android:textAlignment="center"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvUmur"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -33,7 +33,6 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvTinggi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -42,7 +41,6 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvBerat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -51,7 +49,6 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvKepala"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -60,11 +57,10 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvHasil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Ideal"
         android:textAlignment="center"
         android:textStyle="bold" />
-</TableRow>
+</LinearLayout>

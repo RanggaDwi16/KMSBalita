@@ -156,7 +156,7 @@
 
                     <TableRow
                         android:background="@color/colorButton"
-                        android:padding="10dp">
+                        android:padding="5dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -169,7 +169,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Jenis Kelamin"
+                            android:text="Jenis\nKelamin"
                             android:textStyle="bold" />
 
                         <TextView
@@ -197,7 +197,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Lingkar Kepala"
+                            android:text="Lingkar\nKepala"
                             android:textStyle="bold" />
 
                         <TextView
@@ -208,6 +208,11 @@
                             android:textStyle="bold" />
                     </TableRow>
 
+                    <include layout="@layout/itemrow_cek"/>
+                    <include layout="@layout/itemrow_cek"/>
+                    <include layout="@layout/itemrow_cek"/>
+                    <include layout="@layout/itemrow_cek"/>
+                    <include layout="@layout/itemrow_cek"/>
                     <include layout="@layout/itemrow_cek"/>
                     <include layout="@layout/itemrow_cek"/>
                     <include layout="@layout/itemrow_cek"/>
@@ -466,6 +471,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
+                    android:layout_marginBottom="10dp"
                     android:background="@drawable/background_button"
                     android:text="Export To PDF"
                     android:textSize="12sp"

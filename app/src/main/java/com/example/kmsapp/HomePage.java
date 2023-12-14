@@ -1,6 +1,7 @@
 package com.example.kmsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -287,7 +288,100 @@ public class HomePage extends AppCompatActivity {
 
 
     private void renderList(){
+        TableLayout tableLayout = findViewById(R.id.tableLayout);
+        int childCount = tableLayout.getChildCount();
+        if (childCount > 1) {
+            // Jika ada lebih dari satu elemen, mulai dari indeks ke-1 (indeks pertama adalah header)
+            for (int i = 1; i < childCount; i++) {
+                // Hapus setiap elemen kecuali header
+                tableLayout.removeViewAt(1);
+            }
+        }
+        String url = Config.BASE_URL + "/tes_get";
+        Map<String, String> params = new HashMap<>();
+        params.put("posyandu", selectedPosyandu);
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String responseString) {
+                Log.d(TAG, "onResponse : " + responseString);
+                JSONObject response = null;
+                try {
+                    response = new JSONObject(responseString);
+                    final String status = response.optString(Config.RESPONSE_STATUS_FIELD);
+                    final String message = response.optString(Config.RESPONSE_MESSAGE_FIELD);
+                    if(status.equalsIgnoreCase(Config.RESPONSE_STATUS_VALUE_SUCCESS)) {
+                        JSONArray payload = response.optJSONArray(Config.RESPONSE_PAYLOAD_FIELD);
+                        for(int i = 0; i < payload.length(); i++){
+                            LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            View view = layoutInflater.inflate(R.layout.itemrow_cek, null);
+                            JSONObject barang = payload.optJSONObject(i);
+                            TextView tvNama = view.findViewById(R.id.tvNama);
+                            TextView tvJK = view.findViewById(R.id.tvJK);
+                            TextView tvUmur = view.findViewById(R.id.tvUmur);
+                            TextView tvTinggi = view.findViewById(R.id.tvTinggi);
+                            TextView tvBerat = view.findViewById(R.id.tvBerat);
+                            TextView tvKepala = view.findViewById(R.id.tvKepala);
+                            TextView tvHasil = view.findViewById(R.id.tvHasil);
 
+                            String jk = (barang.optString("TES_JK").equals("GENDER_MALE")) ? "L" : "P";
+                            int umur = barang.optInt("TES_UMUR");
+                            Double tinggi = barang.optDouble("TES_TINGGI");
+                            Double berat = barang.optDouble("TES_BERAT");
+                            Double kepala = barang.optDouble("TES_KEPALA");
+                            String rTinggi = Config.getBalitaStatus(barang.optString("TES_JK") + " TINGGI " + umur, tinggi).get(0);
+                            String rBerat = Config.getBalitaStatus(barang.optString("TES_JK") + " BERAT " + umur, berat).get(0);
+                            String rKepala = Config.getBalitaStatus(barang.optString("TES_JK") + " KEPALA " + umur, kepala).get(0);
+                            tvNama.setText("" + barang.optString("TES_NAMA"));
+                            tvJK.setText("" + jk);
+                            tvUmur.setText("" + umur);
+                            tvTinggi.setText("" + tinggi);
+                            tvBerat.setText("" + berat);
+                            tvKepala.setText("" + kepala);
+
+                            tvHasil.setText("" + rTinggi);
+
+                            tableLayout.addView(view);
+                        }
+                    }
+                }
+                catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.networkResponse != null) {
+                    int statusCode = error.networkResponse.statusCode;
+                    String errorInfo1 = error.getMessage();
+                    String errorInfo2 = error.getLocalizedMessage();
+                    Log.d(TAG, "onError: " + error);
+                    Log.d(TAG, "onError code: " + statusCode);
+                    Log.d(TAG, "onError code: " + errorInfo1);
+                    Log.d(TAG, "onError code: " + errorInfo2);
+                }
+                Toast.makeText(mContext, "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
+            }
+        };
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, responseListener, errorListener) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/x-www-form-urlencoded");
+                headers.put("auth-token", mUserToken);
+                return headers;
+            }
+            @Override
+            public RetryPolicy getRetryPolicy() {
+                return Config.getRetryPolicy();
+            }
+        };
+        Volley.newRequestQueue(this).add(stringRequest);
     }
 
 
