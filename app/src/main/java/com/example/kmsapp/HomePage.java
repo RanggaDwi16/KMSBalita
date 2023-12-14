@@ -51,6 +51,11 @@ public class HomePage extends AppCompatActivity {
 
     String selectedPosyandu = "_ALL_";
 
+    ArrayList<String> posyanduList;
+    HashMap<String, String> posyanduObject;
+    ArrayAdapter<String> adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,35 +118,27 @@ public class HomePage extends AppCompatActivity {
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.activity_pop_up, null);
         dialogBuilder.setView(dialogView);
+
         Spinner _spinnerPuskesmas = (Spinner) dialogView.findViewById(R.id.spinnerPuskesmas);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.puskesmas, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
         _spinnerPuskesmas.setAdapter(adapter);
-
         _spinnerPuskesmas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Code to handle item selection
-                String selectedRole = (String) parentView.getItemAtPosition(position);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selected = _spinnerPuskesmas.getSelectedItem().toString();
+                selectedPosyandu = posyanduObject.get(selected);
+                renderList();
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // Code to handle no item selected
+            public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+        _spinnerPuskesmas.setSelection(0);
 
-        // Find views in the custom dialog layout
-        // Example: TextView textView = dialogView.findViewById(R.id.textView);
-
-        // Set up any other customization or listeners for your dialog views here
-
-        // Set positive and negative buttons
         dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(HomePage.this, StatusBalita.class);
+                intent.putExtra("POSYANDU", selectedPosyandu);
                 startActivity(intent);
             }
         });
@@ -176,8 +173,8 @@ public class HomePage extends AppCompatActivity {
                     final String message = response.optString(Config.RESPONSE_MESSAGE_FIELD);
                     if(status.equalsIgnoreCase(Config.RESPONSE_STATUS_VALUE_SUCCESS)) {
                         JSONArray payload = response.optJSONArray(Config.RESPONSE_PAYLOAD_FIELD);
-                        ArrayList<String> posyanduList = new ArrayList<>();
-                        HashMap<String, String> posyanduObject = new HashMap<>();
+                        posyanduList = new ArrayList<>();
+                        posyanduObject = new HashMap<>();
                         posyanduList.add("SEMUA");
                         posyanduObject.put("SEMUA", "_ALL_");
                         for (int i = 0; i < payload.length(); i++) {
@@ -186,7 +183,7 @@ public class HomePage extends AppCompatActivity {
                             posyanduObject.put(_posyandu.optString("POSY_NAMA"), _posyandu.optString("POSY_ID"));
                         }
 
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(HomePage.this, android.R.layout.simple_spinner_item, posyanduList);
+                        adapter = new ArrayAdapter<>(HomePage.this, android.R.layout.simple_spinner_item, posyanduList);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         _spinnerPosyandu.setAdapter(adapter);
                         _spinnerPosyandu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -241,24 +238,24 @@ public class HomePage extends AppCompatActivity {
             }
         };
         Volley.newRequestQueue(this).add(stringRequest);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.posyandu, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        _spinnerPosyandu.setAdapter(adapter);
-
-        _spinnerPosyandu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Code to handle item selection
-                String selectedRole = (String) parentView.getItemAtPosition(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // Code to handle no item selected
-            }
-        });
+//
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.posyandu, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        _spinnerPosyandu.setAdapter(adapter);
+//
+//        _spinnerPosyandu.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+//                // Code to handle item selection
+//                String selectedRole = (String) parentView.getItemAtPosition(position);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parentView) {
+//                // Code to handle no item selected
+//            }
+//        });
     }
 
 

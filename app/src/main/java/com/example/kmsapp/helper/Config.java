@@ -19,8 +19,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -126,6 +129,27 @@ public class Config {
     public static Bitmap base64ToBitmap(String base64String) {
         byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
+
+    public static final String getBalitaStatus(String key, int value){
+        HashMap<String, ArrayList<Double>> ref = new HashMap<>();
+        ArrayList<Double> values;
+
+        // berat
+        values = new ArrayList<>();values.add(1.0);values.add(2.0);ref.put("GENDER_MALE BERAT 1", values);
+        values = new ArrayList<>();values.add(1.0);values.add(1.0);ref.put("GENDER_MALE BERAT 2", values);
+
+        ArrayList<Double> cek = ref.get(key);
+        String r = "Normal";
+        if(value > cek.get(1)){
+            r = "Overnormal";
+        }
+        if(value < cek.get(0)){
+            r = "Undernormal";
+        }
+
+        return r;
     }
 
 }

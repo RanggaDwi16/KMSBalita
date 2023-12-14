@@ -61,7 +61,7 @@ public class TambahKader extends AppCompatActivity {
     private void bind(ActionCallback callback){
         etEmail = findViewById(R.id.editTextTextEmailAddress);
         etPassword = findViewById(R.id.editTextTextPassword);
-        etNama = findViewById(R.id.editTextTextEmailAddress);
+        etNama = findViewById(R.id.editTextTextPersonName2);
         etHP = findViewById(R.id.editTextPhone);
         btnSubmit = findViewById(R.id.button4);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
