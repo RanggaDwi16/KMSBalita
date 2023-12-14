@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/poppins_regular"
             android:text="Input Data Diri Balita"
@@ -152,7 +152,7 @@
                     android:id="@+id/etTinggi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="0"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:inputType="numberDecimal"
@@ -181,7 +181,7 @@
                     android:id="@+id/etBerat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="0"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold"
@@ -220,7 +220,7 @@
                     android:id="@+id/etKepala"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="0"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold"
@@ -249,7 +249,7 @@
                     android:id="@+id/etUmur"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="0"
+                    android:text="0"
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     android:textStyle="bold"
@@ -395,11 +395,20 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btnSimpan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background_button"
+            android:text="Simpan Hasil"/>
+
+        <Button
             android:id="@+id/btnCek"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="50dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/background_button"
             android:text="Cek berat/tinggi ideal balita"/>
 

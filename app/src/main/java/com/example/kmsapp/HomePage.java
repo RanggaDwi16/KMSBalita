@@ -2,7 +2,10 @@ package com.example.kmsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,9 +17,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -120,6 +125,23 @@ public class HomePage extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         Spinner _spinnerPuskesmas = (Spinner) dialogView.findViewById(R.id.spinnerPuskesmas);
+        TextView datePicker = dialogView.findViewById(R.id.datePicker);
+
+        final String[] tanggal = {""};
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Config.showDatePickerDialog(new DatePickerDialog.OnDateSetListener() {
+                    @SuppressLint("SetTextI18n")
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        tanggal[0] = Config.pad(year) + "-" + Config.pad(month + 1) + "-" + Config.pad(dayOfMonth);
+                        datePicker.setText(Config.tglIndo(tanggal[0], "LONG"));
+                    }
+                }, mContext);
+            }
+        });
+
         _spinnerPuskesmas.setAdapter(adapter);
         _spinnerPuskesmas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -137,8 +159,13 @@ public class HomePage extends AppCompatActivity {
         dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                if(selectedPosyandu.equals("_ALL_") || tanggal[0].equals("")){
+                    Toast.makeText(mContext, "Mohon pilih posyandu dan tanggal", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent(HomePage.this, StatusBalita.class);
                 intent.putExtra("POSYANDU", selectedPosyandu);
+                intent.putExtra("TANGGAL", tanggal[0]);
                 startActivity(intent);
             }
         });
