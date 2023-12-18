@@ -14,7 +14,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:fontFamily="@font/poppins_black"
-        android:text="Halaman Utama Admin"
+        android:text="Halaman Utama"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -466,17 +466,36 @@
 
                 </TableLayout>
 
-                <Button
+                <LinearLayout
                     android:id="@+id/btnExportPDF"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/background_button"
-                    android:text="Export To PDF"
-                    android:textSize="12sp"
+                    android:orientation="horizontal"
+                    android:gravity="end"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+                    app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+                    >
+                    <Button
+                        android:id="@+id/btnActionExportPDF"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/background_button"
+                        android:text="Export To PDF"
+                        android:textSize="12sp"/>
+                    <Button
+                        android:id="@+id/btnActionExportExcel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/background_button"
+                        android:text="Export To Excel"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
 
                 <Spinner
                     android:id="@+id/posyandu"

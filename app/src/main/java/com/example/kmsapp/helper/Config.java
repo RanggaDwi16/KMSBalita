@@ -1,5 +1,6 @@
 package com.example.kmsapp.helper;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Base64;
 import android.widget.Toast;
@@ -299,6 +301,13 @@ public class Config {
         ret.add(r);
         ret.add("" + cek.get(0) + " " + cek.get(1));
         return ret;
+    }
+
+
+    public static void browserIntent(Activity context, String url){
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        context.startActivity(i);
     }
 
 }

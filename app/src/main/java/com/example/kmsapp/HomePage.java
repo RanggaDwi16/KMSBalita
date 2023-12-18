@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -55,7 +56,10 @@ public class HomePage extends AppCompatActivity {
     Button _btnStatusBalita;
     Button _btnBeratTinggiIdeal;
 
+    Button btnActionExportPDF, btnActionExportExcel;
+
     String selectedPosyandu = "_ALL_";
+    String selectedPosyanduString = "-";
 
     ArrayList<String> posyanduList;
     HashMap<String, String> posyanduObject;
@@ -89,6 +93,8 @@ public class HomePage extends AppCompatActivity {
         _btnStatusBalita = (Button) findViewById(R.id.btnStatusBalita);
         _btnBeratTinggiIdeal = (Button) findViewById(R.id.btnBeratTinggiIdeal);
         _spinnerPosyandu = (Spinner) findViewById(R.id.posyandu);
+        btnActionExportPDF = findViewById(R.id.btnActionExportPDF);
+        btnActionExportExcel = findViewById(R.id.btnActionExportExcel);
 
         _btnTambahKader.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +117,23 @@ public class HomePage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomePage.this, BeratTinggiIdeal.class);
                 startActivity(intent);
+            }
+        });
+
+        btnActionExportPDF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = Config.BASE_URL + "/export_kmsbalita?posyandu="+selectedPosyandu+"&posyandu_nama="+selectedPosyanduString+"&export=pdf";
+                Log.d(TAG, "onClick: " + url);
+                Config.browserIntent(mContext, url);
+            }
+        });
+        btnActionExportExcel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = Config.BASE_URL + "/export_kmsbalita?posyandu="+selectedPosyandu+"&posyandu_nama="+selectedPosyanduString+"&export=excel";
+                Log.d(TAG, "onClick: " + url);
+                Config.browserIntent(mContext, url);
             }
         });
 
@@ -219,6 +242,7 @@ public class HomePage extends AppCompatActivity {
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                                 String selected = _spinnerPosyandu.getSelectedItem().toString();
                                 selectedPosyandu = posyanduObject.get(selected);
+                                selectedPosyanduString = selected;
                                 renderList();
                             }
                             @Override
@@ -395,13 +419,13 @@ public class HomePage extends AppCompatActivity {
         TextView textView13 = findViewById(R.id.textView13);
         Spinner posyandu = findViewById(R.id.posyandu);
         TableLayout tableLayout = findViewById(R.id.tableLayout);
-        Button btnExportPDF = findViewById(R.id.btnExportPDF);
+        LinearLayout divExport = findViewById(R.id.btnExportPDF);
 
         btnTambahKader.setVisibility(View.INVISIBLE);
         textView13.setVisibility(View.INVISIBLE);
         posyandu.setVisibility(View.INVISIBLE);
         tableLayout.setVisibility(View.INVISIBLE);
-        btnExportPDF.setVisibility(View.INVISIBLE);
+        divExport.setVisibility(View.INVISIBLE);
     }
 
 
