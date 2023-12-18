@@ -352,9 +352,9 @@ public class HomePage extends AppCompatActivity {
                             Double tinggi = barang.optDouble("TES_TINGGI");
                             Double berat = barang.optDouble("TES_BERAT");
                             Double kepala = barang.optDouble("TES_KEPALA");
-                            String rTinggi = Config.getBalitaStatus(barang.optString("TES_JK") + " TINGGI " + umur, tinggi).get(0);
-                            String rBerat = Config.getBalitaStatus(barang.optString("TES_JK") + " BERAT " + umur, berat).get(0);
-                            String rKepala = Config.getBalitaStatus(barang.optString("TES_JK") + " KEPALA " + umur, kepala).get(0);
+                            String rTinggi = barang.optString("TES_HASIL_TINGGI");
+                            String rBerat = barang.optString("TES_HASIL_BERAT");
+                            String rKepala = barang.optString("TES_HASIL_KEPALA");
                             tvNama.setText("" + barang.optString("TES_NAMA"));
                             tvJK.setText("" + jk);
                             tvUmur.setText("" + umur);

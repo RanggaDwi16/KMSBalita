@@ -133,7 +133,7 @@
                     android:text="Tinggi Badan Ideal/Normal"
                     android:textColor="@color/black"
                     android:textSize="15sp"
-                    />]
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="0dp"
@@ -235,6 +235,83 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTinggiRef"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Tinggi badan menurut umur (laki-laki)"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivTinggiRef"
+                    android:layout_width="wrap_content"
+                    android:layout_height="240dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/tinggi_laki"
+                    />
+
+                <TextView
+                    android:id="@+id/tvBeratRef"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Berat badan menurut umur (laki-laki)"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivBeratRef"
+                    android:layout_width="wrap_content"
+                    android:layout_height="240dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/tinggi_laki"
+                    />
+
+                <TextView
+                    android:id="@+id/tvKepalaRef"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Lingkar kepala menurut umur (laki-laki)"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    />
+
+                <ImageView
+                    android:id="@+id/ivKepalaRef"
+                    android:layout_width="wrap_content"
+                    android:layout_height="240dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/tinggi_laki"
+                    />
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -33,6 +35,9 @@ public class BeratTinggiIdeal extends AppCompatActivity {
     TextView tvNormalTinggi, tvNormalBerat, tvNormalKepala;
     Spinner spnJK;
     String selectedJK;
+
+    TextView tvTinggiRef, tvBeratRef, tvKepalaRef;
+    ImageView ivTinggiRef, ivBeratRef, ivKepalaRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,12 @@ public class BeratTinggiIdeal extends AppCompatActivity {
         tvNormalBerat = findViewById(R.id.tvNormalBerat);
         tvNormalKepala = findViewById(R.id.tvNormalKepala);
         spnJK = findViewById(R.id.spnJK);
+        tvTinggiRef = findViewById(R.id.tvTinggiRef);
+        tvBeratRef = findViewById(R.id.tvBeratRef);
+        tvKepalaRef = findViewById(R.id.tvKepalaRef);
+        ivTinggiRef = findViewById(R.id.ivTinggiRef);
+        ivBeratRef = findViewById(R.id.ivBeratRef);
+        ivKepalaRef = findViewById(R.id.ivKepalaRef);
 
         ArrayList<String> jkList = new ArrayList<>();
         jkList.add("Laki-laki");
@@ -108,6 +119,23 @@ public class BeratTinggiIdeal extends AppCompatActivity {
 
 
     private void cek(){
+        if(selectedJK.equals("GENDER_MALE")){
+            ivTinggiRef.setBackgroundResource(R.drawable.tinggi_laki);
+            ivBeratRef.setBackgroundResource(R.drawable.berat_laki);
+            ivKepalaRef.setBackgroundResource(R.drawable.lingkar_laki);
+            tvTinggiRef.setText("Tinggi badan menurut umur (laki-laki)");
+            tvBeratRef.setText("Berat badan menurut umur (laki-laki)");
+            tvKepalaRef.setText("Lingkar kepala menurut umur (laki-laki)");
+        }
+        if(selectedJK.equals("GENDER_FEMALE")){
+            ivTinggiRef.setBackgroundResource(R.drawable.tinggi_perempuan);
+            ivBeratRef.setBackgroundResource(R.drawable.berat_perempuan);
+            ivKepalaRef.setBackgroundResource(R.drawable.lingkar_perempuan);
+            tvTinggiRef.setText("Tinggi badan menurut umur (perempuan)");
+            tvBeratRef.setText("Berat badan menurut umur (perempuan)");
+            tvKepalaRef.setText("Lingkar kepala menurut umur (perempuan)");
+        }
+
         String v4 = etUmur.getText().toString();
         if (
                v4.isEmpty() || v4.equals("0") || v4.startsWith(".")

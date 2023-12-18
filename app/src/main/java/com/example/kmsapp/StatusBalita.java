@@ -54,6 +54,7 @@ public class StatusBalita extends AppCompatActivity {
     Double berat;
     Double kepala;
     Double umur;
+    String rTinggi, rBerat, rKepala;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,9 +212,9 @@ public class StatusBalita extends AppCompatActivity {
         berat = Double.valueOf(etBerat.getText().toString());
         kepala = Double.valueOf(etKepala.getText().toString());
         umur = Double.valueOf(etUmur.getText().toString());
-        String rTinggi = Config.getBalitaStatus(selectedJK + " TINGGI " + umur, tinggi).get(0);
-        String rBerat = Config.getBalitaStatus(selectedJK + " BERAT " + umur, berat).get(0);
-        String rKepala = Config.getBalitaStatus(selectedJK + " KEPALA " + umur, kepala).get(0);
+        rTinggi = Config.getBalitaStatus(selectedJK + " TINGGI " + umur, tinggi).get(0);
+        rBerat = Config.getBalitaStatus(selectedJK + " BERAT " + umur, berat).get(0);
+        rKepala = Config.getBalitaStatus(selectedJK + " KEPALA " + umur, kepala).get(0);
         tvHasilTinggi.setText(rTinggi);
         tvHasilBerat.setText(rBerat);
         tvHasilKepala.setText(rKepala);
@@ -236,6 +237,9 @@ public class StatusBalita extends AppCompatActivity {
         params.put("tinggi", "" + tinggi);
         params.put("berat", "" + berat);
         params.put("kepala", "" + kepala);
+        params.put("hasil_tinggi", "" + rTinggi);
+        params.put("hasil_berat", "" + rBerat);
+        params.put("hasil_kepala", "" + rKepala);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String responseString) {
@@ -247,6 +251,7 @@ public class StatusBalita extends AppCompatActivity {
                     final String message = response.optString(Config.RESPONSE_MESSAGE_FIELD);
                     Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
                     if(status.equalsIgnoreCase(Config.RESPONSE_STATUS_VALUE_SUCCESS)) {
+                        startActivity(new Intent(mContext, HomePage.class));
                         finish();
                     }
                 }
