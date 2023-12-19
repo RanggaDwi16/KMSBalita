@@ -56,7 +56,7 @@ public class HomePage extends AppCompatActivity {
     Button _btnStatusBalita;
     Button _btnBeratTinggiIdeal;
 
-    Button btnActionExportPDF, btnActionExportExcel;
+    Button btnActionExportPDF, btnActionExportExcel, btnLogout;
 
     String selectedPosyandu = "_ALL_";
     String selectedPosyanduString = "-";
@@ -95,6 +95,7 @@ public class HomePage extends AppCompatActivity {
         _spinnerPosyandu = (Spinner) findViewById(R.id.posyandu);
         btnActionExportPDF = findViewById(R.id.btnActionExportPDF);
         btnActionExportExcel = findViewById(R.id.btnActionExportExcel);
+        btnLogout = findViewById(R.id.btnLogout);
 
         _btnTambahKader.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +118,13 @@ public class HomePage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomePage.this, BeratTinggiIdeal.class);
                 startActivity(intent);
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Config.forceLogout(mContext);
             }
         });
 

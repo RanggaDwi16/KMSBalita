@@ -86,7 +86,7 @@ public class LoginPage extends AppCompatActivity {
         });
 
 //        if(debugMode){
-//            _email.setText("badrulcr5@gmail.com");
+//            _email.setText("admin15@gmail.com");
 //            _password.setText("12345678");
 //            //doLogin();
 //        }
@@ -120,6 +120,7 @@ public class LoginPage extends AppCompatActivity {
                     response = new JSONObject(responseString);
                     final String status = response.optString(Config.RESPONSE_STATUS_FIELD);
                     final String message = response.optString(Config.RESPONSE_MESSAGE_FIELD);
+                    Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
                     if(status.equalsIgnoreCase(Config.RESPONSE_STATUS_VALUE_SUCCESS)) {
                         JSONObject payload = response.optJSONObject(Config.RESPONSE_PAYLOAD_FIELD);
                         mSharedPreferences.edit().putString(Config.SP_USER_ID, payload.optString("USER_ID")).commit();
