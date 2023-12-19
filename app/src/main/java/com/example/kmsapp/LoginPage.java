@@ -85,11 +85,11 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
-        if(debugMode){
-            _email.setText("badrulcr5@gmail.com");
-            _password.setText("12345678");
-            //doLogin();
-        }
+//        if(debugMode){
+//            _email.setText("badrulcr5@gmail.com");
+//            _password.setText("12345678");
+//            //doLogin();
+//        }
 
     }
 

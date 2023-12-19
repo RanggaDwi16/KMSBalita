@@ -176,35 +176,28 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Umur"
+                            android:text="Umur\n(bulan)"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Tinggi"
+                            android:text="Tinggi\n(cm)"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Berat"
+                            android:text="Berat\n(kg)"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Lingkar\nKepala"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Hasil"
+                            android:text="Lingkar\nKepala (cm)"
                             android:textStyle="bold" />
                     </TableRow>
 
@@ -482,7 +475,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/background_button"
-                        android:text="Export To PDF"
+                        android:text="Export PDF"
                         android:textSize="12sp"/>
                     <Button
                         android:id="@+id/btnActionExportExcel"
@@ -492,7 +485,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="5dp"
                         android:background="@drawable/background_button"
-                        android:text="Export To Excel"
+                        android:text="Export Excel"
                         android:textSize="12sp"/>
                 </LinearLayout>
 

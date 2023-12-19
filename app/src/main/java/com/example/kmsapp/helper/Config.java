@@ -39,7 +39,8 @@ import java.util.Map;
 
 public class Config {
 
-    public static String BASE_URL = "http://192.168.0.146:5004";
+    //public static String BASE_URL = "http://192.168.0.146:5004";
+    public static String BASE_URL = "http://62.72.51.244:5004";
 
     public static boolean DEBUG_MODE = true;
     public static String DEBUG_TAG = "MSTH";
@@ -658,10 +659,10 @@ public class Config {
         if(value != null) {
             r = "Normal";
             if (value > cek.get(1)) {
-                r = "Overnormal";
+                r = "Berlebih";
             }
             if (value < cek.get(0)) {
-                r = "Undernormal";
+                r = "Kurang";
             }
         }
 

@@ -345,7 +345,7 @@ public class HomePage extends AppCompatActivity {
                             TextView tvTinggi = view.findViewById(R.id.tvTinggi);
                             TextView tvBerat = view.findViewById(R.id.tvBerat);
                             TextView tvKepala = view.findViewById(R.id.tvKepala);
-                            TextView tvHasil = view.findViewById(R.id.tvHasil);
+                            //TextView tvHasil = view.findViewById(R.id.tvHasil);
 
                             String jk = (barang.optString("TES_JK").equals("GENDER_MALE")) ? "L" : "P";
                             int umur = barang.optInt("TES_UMUR");
@@ -358,11 +358,11 @@ public class HomePage extends AppCompatActivity {
                             tvNama.setText("" + barang.optString("TES_NAMA"));
                             tvJK.setText("" + jk);
                             tvUmur.setText("" + umur);
-                            tvTinggi.setText("" + tinggi);
-                            tvBerat.setText("" + berat);
-                            tvKepala.setText("" + kepala);
+                            tvTinggi.setText("" + tinggi + "\n" + rTinggi);
+                            tvBerat.setText("" + berat + "\n" + rBerat);
+                            tvKepala.setText("" + kepala + "\n" + rKepala);
 
-                            tvHasil.setText("" + rTinggi);
+                            //tvHasil.setText("");
 
                             tableLayout.addView(view);
                         }
