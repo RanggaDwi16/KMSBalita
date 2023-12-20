@@ -86,7 +86,7 @@ public class LoginPage extends AppCompatActivity {
         });
 
 //        if(debugMode){
-//            _email.setText("admin15@gmail.com");
+//            _email.setText("admin1@gmail.com");
 //            _password.setText("12345678");
 //            //doLogin();
 //        }
