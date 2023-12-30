@@ -198,7 +198,7 @@ public class StatusBalita extends AppCompatActivity {
         if (v1.isEmpty() || v1.equals("0") || v1.startsWith(".")
                 || v2.isEmpty() || v2.equals("0") || v2.startsWith(".")
                 || v3.isEmpty() || v3.equals("0") || v3.startsWith(".")
-                || v4.isEmpty() || v4.equals("0") || v4.startsWith(".")
+                || v4.isEmpty() || v4.startsWith(".")
         ){
             tvHasilTinggi.setText("-");
             tvHasilBerat.setText("-");

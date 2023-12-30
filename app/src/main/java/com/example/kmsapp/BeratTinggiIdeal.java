@@ -138,7 +138,7 @@ public class BeratTinggiIdeal extends AppCompatActivity {
 
         String v4 = etUmur.getText().toString();
         if (
-               v4.isEmpty() || v4.equals("0") || v4.startsWith(".")
+               v4.isEmpty() || v4.startsWith(".")
         ){
             tvNormalTinggi.setText("-");
             tvNormalBerat.setText("-");
