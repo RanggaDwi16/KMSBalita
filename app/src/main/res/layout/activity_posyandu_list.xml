@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+<!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+<!--            android:id="@+id/swipeRefreshLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_above="@+id/divBottom"-->
+<!--            android:background="#F8F8F9"-->
+<!--            android:paddingHorizontal="12dp"-->
+<!--            android:visibility="visible">-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardUseCompatPadding="true"
+                        app:cardBackgroundColor="#fff">
+
+                        <EditText
+                            android:id="@+id/etSearch"
+                            android:inputType="textCapSentences"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="9dp"
+                            android:layout_marginRight="40dp"
+                            android:paddingVertical="10dp"
+                            android:imeOptions="flagNoExtractUi|actionSearch"
+                            android:hint="cari barang..."
+                            android:textColorHint="#92494949"
+                            android:textSize="15sp"
+                            android:layout_marginLeft="4dp"
+                            android:background="#fff"
+                            android:drawablePadding="5dp" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:scaleX="0.5"
+                            android:scaleY="0.5"
+                            android:src="@drawable/ic_launcher_background"
+                            android:layout_gravity="center_vertical|end"
+                            android:id="@+id/ivSearch"
+                            android:layout_marginRight="4dp"/>
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="5dp">
+
+                    <LinearLayout
+                        android:id="@+id/divContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/itemrow_posyandu" />
+                        <include layout="@layout/itemrow_posyandu" />
+                        <include layout="@layout/itemrow_posyandu" />
+                        <include layout="@layout/itemrow_posyandu" />
+
+                    </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
+
+            </LinearLayout>
+
+<!--        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+
+        <LinearLayout
+            android:id="@+id/divBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:background="#F8F8F9"
+            android:orientation="horizontal"
+            android:paddingHorizontal="15dp"
+            android:paddingTop="1sp"
+            android:paddingBottom="1sp"
+            android:visibility="visible"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:id="@+id/divBtnTambah"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@drawable/background_button"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp">
+
+<!--                <ImageView-->
+<!--                    android:layout_width="16dp"-->
+<!--                    android:layout_height="16dp"-->
+<!--                    android:src="@drawable/ic_launcher_foreground"-->
+<!--                    app:tint="@color/white" />-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="TAMBAH"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</FrameLayout>

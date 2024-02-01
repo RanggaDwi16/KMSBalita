@@ -31,6 +31,12 @@
             android:name=".TambahKader"
             android:exported="false" />
         <activity
+            android:name=".PosyanduListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PosyanduFormActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomePage"
             android:exported="false" />
         <activity

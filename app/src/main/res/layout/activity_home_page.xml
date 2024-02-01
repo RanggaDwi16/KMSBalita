@@ -96,49 +96,81 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView5"
                     app:srcCompat="@drawable/unggul" />
 
-                <Button
-                    android:id="@+id/btnStatusBalita"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/divBalita"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/background_button"
-                    android:text="Pantau Status Balita"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    android:weightSum="100"
+                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    >
 
-                <Button
-                    android:id="@+id/btnBeratTinggiIdeal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/background_button"
-                    android:text="Cek Berat / Tinggi Ideal Balita"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnStatusBalita" />
+                    <Button
+                        android:id="@+id/btnStatusBalita"
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:layout_marginRight="2dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_button"
+                        android:text="Pantau Status Balita"
+                        />
 
-                <Button
-                    android:id="@+id/btnTambahKader"
-                    android:layout_width="wrap_content"
+                    <Button
+                        android:id="@+id/btnBeratTinggiIdeal"
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:layout_marginLeft="2dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_button"
+                        android:text="Cek Berat / Tinggi Ideal"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/divKaderPosy"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/background_button"
-                    android:text="Tambah Kader"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnBeratTinggiIdeal" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:weightSum="100"
+                    app:layout_constraintTop_toBottomOf="@+id/divBalita"
+                    >
+
+                    <Button
+                        android:id="@+id/btnTambahKader"
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:layout_marginRight="2dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_button"
+                        android:text="Tambah Kader"
+                        />
+
+                    <Button
+                        android:id="@+id/btnPosyandu"
+                        android:layout_width="0dp"
+                        android:layout_weight="50"
+                        android:layout_marginLeft="2dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_button"
+                        android:text="Manajemen Posyandu"
+                        />
+
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/btnLogout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:background="@drawable/background_button"
+                    android:background="@drawable/background_button_danger"
+                    android:textColor="@color/white"
                     android:text="Logout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btnTambahKader" />
+                    app:layout_constraintTop_toBottomOf="@+id/divKaderPosy" />
 
 
                 <TextView
@@ -163,7 +195,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/posyandu">
+                    app:layout_constraintTop_toBottomOf="@+id/divFilter">
 
                     <TableRow
                         android:background="@color/colorButton"
@@ -180,7 +212,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Jenis\nKelamin"
+                            android:text="JK"
                             android:textStyle="bold" />
 
                         <TextView
@@ -208,7 +240,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Lingkar\nKepala (cm)"
+                            android:text="Lingkar\nKepala\n(cm)"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Posyandu"
                             android:textStyle="bold" />
                     </TableRow>
 
@@ -500,18 +539,37 @@
                         android:textSize="12sp"/>
                 </LinearLayout>
 
-
-                <Spinner
-                    android:id="@+id/posyandu"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/divFilter"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
-                    android:background="@drawable/background_edittext"
-                    android:text="Posyandu"
                     app:layout_constraintBottom_toTopOf="@+id/tableLayout"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView13" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView13"
+                    >
+
+                    <Spinner
+                        android:id="@+id/posyandu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_edittext"
+                        android:text="Posyandu"
+                        android:visibility="invisible"
+                        />
+
+                    <EditText
+                        android:id="@+id/etCari"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:hint="cari.."
+                        android:background="@drawable/background_edittext"
+                        />
+
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

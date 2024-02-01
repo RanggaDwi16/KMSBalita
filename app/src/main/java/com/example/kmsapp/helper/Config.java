@@ -52,6 +52,7 @@ public class Config {
     public static String SP_USER_NAMA = "SP_USER_NAMA";
     public static String SP_USER_HP = "SP_USER_HP";
     public static String SP_USER_EMAIL = "SP_USER_EMAIL";
+    public static String SP_USER_POSY = "SP_USER_POSY";
     public static String SP_USER_AVATAR_PATH = "SP_USER_AVATAR_PATH";
 
 

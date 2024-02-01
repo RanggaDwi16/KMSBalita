@@ -13,12 +13,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -50,11 +52,15 @@ public class HomePage extends AppCompatActivity {
     SharedPreferences mSharedPreferences;
     HomePage mContext;
     String mUserToken = "";
+    String mUserJenis = "";
+    String mUserPosy = "";
 
     Spinner _spinnerPosyandu;
+    EditText etCari;
     Button _btnTambahKader;
     Button _btnStatusBalita;
     Button _btnBeratTinggiIdeal;
+    Button btnPosyandu;
 
     Button btnActionExportPDF, btnActionExportExcel, btnLogout;
 
@@ -73,6 +79,8 @@ public class HomePage extends AppCompatActivity {
 
         mSharedPreferences = getSharedPreferences(Config.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
         mUserToken = mSharedPreferences.getString(Config.SP_USER_TOKEN, "");
+        mUserJenis = mSharedPreferences.getString(Config.SP_USER_TYPE, "");
+        mUserPosy = mSharedPreferences.getString(Config.SP_USER_POSY, "");
         mContext = HomePage.this;
         if(mUserToken.equals("")){
             Config.forceLogout(mContext);
@@ -81,7 +89,7 @@ public class HomePage extends AppCompatActivity {
         bind(new ActionCallback() {
             @Override
             public void onActionDone() {
-                setupSpinner();
+                //setupSpinner();
                 validateRole();
             }
         });
@@ -93,9 +101,24 @@ public class HomePage extends AppCompatActivity {
         _btnStatusBalita = (Button) findViewById(R.id.btnStatusBalita);
         _btnBeratTinggiIdeal = (Button) findViewById(R.id.btnBeratTinggiIdeal);
         _spinnerPosyandu = (Spinner) findViewById(R.id.posyandu);
+        btnPosyandu = findViewById(R.id.btnPosyandu);
+        etCari = findViewById(R.id.etCari);
         btnActionExportPDF = findViewById(R.id.btnActionExportPDF);
         btnActionExportExcel = findViewById(R.id.btnActionExportExcel);
         btnLogout = findViewById(R.id.btnLogout);
+
+        etCari.setImeActionLabel("Cari", KeyEvent.KEYCODE_ENTER);
+        etCari.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    renderList();
+                    return true;
+                }
+                return false;
+            }
+        });
+        renderList();
 
         _btnTambahKader.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +140,13 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomePage.this, BeratTinggiIdeal.class);
+                startActivity(intent);
+            }
+        });
+        btnPosyandu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomePage.this, PosyanduListActivity.class);
                 startActivity(intent);
             }
         });
@@ -180,13 +210,19 @@ public class HomePage extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selected = _spinnerPuskesmas.getSelectedItem().toString();
                 selectedPosyandu = posyanduObject.get(selected);
-                renderList();
+                Log.d(TAG, "onItemSelected: " + selectedPosyandu);
+                //renderList();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
         _spinnerPuskesmas.setSelection(0);
+        if(mUserJenis.equals("USER_TYPE_KADER")){
+            _spinnerPuskesmas.setEnabled(false);
+            _spinnerPuskesmas.setVisibility(View.GONE);
+            selectedPosyandu = mUserPosy;
+        }
 
         dialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -251,7 +287,7 @@ public class HomePage extends AppCompatActivity {
                                 String selected = _spinnerPosyandu.getSelectedItem().toString();
                                 selectedPosyandu = posyanduObject.get(selected);
                                 selectedPosyanduString = selected;
-                                renderList();
+                                //renderList();
                             }
                             @Override
                             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -329,9 +365,10 @@ public class HomePage extends AppCompatActivity {
                 tableLayout.removeViewAt(1);
             }
         }
+        String keyword = etCari.getText().toString().trim();
         String url = Config.BASE_URL + "/tes_get";
         Map<String, String> params = new HashMap<>();
-        params.put("posyandu", selectedPosyandu);
+        params.put("keyword", keyword);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String responseString) {
@@ -346,31 +383,30 @@ public class HomePage extends AppCompatActivity {
                         for(int i = 0; i < payload.length(); i++){
                             LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                             View view = layoutInflater.inflate(R.layout.itemrow_cek, null);
-                            JSONObject barang = payload.optJSONObject(i);
+                            JSONObject _tes = payload.optJSONObject(i);
                             TextView tvNama = view.findViewById(R.id.tvNama);
                             TextView tvJK = view.findViewById(R.id.tvJK);
                             TextView tvUmur = view.findViewById(R.id.tvUmur);
                             TextView tvTinggi = view.findViewById(R.id.tvTinggi);
                             TextView tvBerat = view.findViewById(R.id.tvBerat);
                             TextView tvKepala = view.findViewById(R.id.tvKepala);
-                            //TextView tvHasil = view.findViewById(R.id.tvHasil);
+                            TextView tvPosyandu = view.findViewById(R.id.tvPX);
 
-                            String jk = (barang.optString("TES_JK").equals("GENDER_MALE")) ? "L" : "P";
-                            int umur = barang.optInt("TES_UMUR");
-                            Double tinggi = barang.optDouble("TES_TINGGI");
-                            Double berat = barang.optDouble("TES_BERAT");
-                            Double kepala = barang.optDouble("TES_KEPALA");
-                            String rTinggi = barang.optString("TES_HASIL_TINGGI");
-                            String rBerat = barang.optString("TES_HASIL_BERAT");
-                            String rKepala = barang.optString("TES_HASIL_KEPALA");
-                            tvNama.setText("" + barang.optString("TES_NAMA"));
+                            String jk = (_tes.optString("TES_JK").equals("GENDER_MALE")) ? "L" : "P";
+                            int umur = _tes.optInt("TES_UMUR");
+                            Double tinggi = _tes.optDouble("TES_TINGGI");
+                            Double berat = _tes.optDouble("TES_BERAT");
+                            Double kepala = _tes.optDouble("TES_KEPALA");
+                            String rTinggi = _tes.optString("TES_HASIL_TINGGI");
+                            String rBerat = _tes.optString("TES_HASIL_BERAT");
+                            String rKepala = _tes.optString("TES_HASIL_KEPALA");
+                            tvNama.setText("" + _tes.optString("TES_NAMA"));
                             tvJK.setText("" + jk);
                             tvUmur.setText("" + umur);
                             tvTinggi.setText("" + tinggi + "\n" + rTinggi);
                             tvBerat.setText("" + berat + "\n" + rBerat);
                             tvKepala.setText("" + kepala + "\n" + rKepala);
-
-                            //tvHasil.setText("");
+                            tvPosyandu.setText(_tes.optString("POSY_NAMA"));
 
                             tableLayout.addView(view);
                         }
@@ -425,13 +461,13 @@ public class HomePage extends AppCompatActivity {
 
         Button btnTambahKader = findViewById(R.id.btnTambahKader);
         TextView textView13 = findViewById(R.id.textView13);
-        Spinner posyandu = findViewById(R.id.posyandu);
+        LinearLayout divFilter = findViewById(R.id.divFilter);
         TableLayout tableLayout = findViewById(R.id.tableLayout);
         LinearLayout divExport = findViewById(R.id.btnExportPDF);
 
         btnTambahKader.setVisibility(View.INVISIBLE);
         textView13.setVisibility(View.INVISIBLE);
-        posyandu.setVisibility(View.INVISIBLE);
+        divFilter.setVisibility(View.INVISIBLE);
         tableLayout.setVisibility(View.INVISIBLE);
         divExport.setVisibility(View.INVISIBLE);
     }
