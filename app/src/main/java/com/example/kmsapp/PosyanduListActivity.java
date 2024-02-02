@@ -69,7 +69,7 @@ public class PosyanduListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(mContext, PosyanduFormActivity.class);
-                i.putExtra("ID", "0");
+                i.putExtra("POSY_ID", "0");
                 startActivity(i);
             }
         });
@@ -106,12 +106,16 @@ public class PosyanduListActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(View view) {
                                     Intent i = new Intent(mContext, PosyanduFormActivity.class);
-                                    i.putExtra("ID", _posyandu.optString("POSY_ID"));
+                                    i.putExtra("POSY_ID", _posyandu.optString("POSY_ID"));
+                                    i.putExtra("POSY_NAMA", _posyandu.optString("POSY_NAMA"));
+                                    i.putExtra("POSY_KETERANGAN", _posyandu.optString("POSY_KETERANGAN"));
                                     startActivity(i);
                                 }
                             });
                             divContainer.addView(view);
                         }
+                    }else{
+                        finish();
                     }
                 }
                 catch (JSONException e) {
@@ -132,6 +136,7 @@ public class PosyanduListActivity extends AppCompatActivity {
                     Log.d(TAG, "onError code: " + errorInfo2);
                 }
                 Toast.makeText(mContext, "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
+                finish();
             }
         };
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, responseListener, errorListener) {
@@ -143,6 +148,7 @@ public class PosyanduListActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/x-www-form-urlencoded");
+                headers.put("auth-token", mUserToken);
                 return headers;
             }
             @Override

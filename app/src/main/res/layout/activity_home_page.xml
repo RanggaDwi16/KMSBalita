@@ -546,6 +546,7 @@
                     android:orientation="horizontal"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
+                    android:weightSum="100"
                     app:layout_constraintBottom_toTopOf="@+id/tableLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView13"
@@ -553,7 +554,8 @@
 
                     <Spinner
                         android:id="@+id/posyandu"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_edittext"
                         android:text="Posyandu"
@@ -562,11 +564,19 @@
 
                     <EditText
                         android:id="@+id/etCari"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="65"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
                         android:hint="cari.."
                         android:background="@drawable/background_edittext"
+                        />
+
+                    <ImageView
+                        android:id="@+id/ivCari"
+                        android:layout_width="0dp"
+                        android:layout_weight="15"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_search"
                         />
 
                 </LinearLayout>

@@ -41,6 +41,8 @@ public class PosyanduFormActivity extends AppCompatActivity {
     Button btnSubmit, btnDelete;
     boolean edit = false;
     String id = "0";
+    String nama = "";
+    String keterangan = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +52,10 @@ public class PosyanduFormActivity extends AppCompatActivity {
         mUserToken = mSharedPreferences.getString(Config.SP_USER_TOKEN, "");
         mContext = PosyanduFormActivity.this;
         id = getIntent().getExtras().getString("POSY_ID", "0");
-        if(id != "0"){
+        if(!id.equals("0")){
             edit = true;
+            nama = getIntent().getExtras().getString("POSY_NAMA", "");
+            keterangan = getIntent().getExtras().getString("POSY_KETERANGAN", "");
         }
         if(mUserToken.equals("")){
             Config.forceLogout(mContext);
@@ -72,6 +76,13 @@ public class PosyanduFormActivity extends AppCompatActivity {
         etNama = findViewById(R.id.etNama);
         btnSubmit = findViewById(R.id.btnSubmit);
         btnDelete = findViewById(R.id.btnDelete);
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hapus();
+            }
+        });
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,16 +95,80 @@ public class PosyanduFormActivity extends AppCompatActivity {
 
 
     private void mode(){
+        Log.d(TAG, "mode: " + edit);
         if(edit){
             tvTitle.setText("Halaman Edit Posyandu");
             tvSubtitle.setText("Edit Posyandu");
             btnSubmit.setText("Update");
+
+            etNama.setText(nama);
+            etKeterangan.setText(keterangan);
         }else{
             tvTitle.setText("Halaman Tambah Posyandu");
             tvSubtitle.setText("Tambah Posyandu");
             btnSubmit.setText("Tambah");
+            btnDelete.setVisibility(View.INVISIBLE);
         }
-        btnDelete.setVisibility(View.INVISIBLE);
+        //
+    }
+
+
+    private void hapus(){
+        String url = Config.BASE_URL + "/posyandu_delete";
+        Map<String, String> params = new HashMap<>();
+        params.put("id", id);
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String responseString) {
+                Log.d(TAG, "hapus.onResponse : " + responseString);
+                JSONObject response = null;
+                try {
+                    response = new JSONObject(responseString);
+                    final String status = response.optString(Config.RESPONSE_STATUS_FIELD);
+                    final String message = response.optString(Config.RESPONSE_MESSAGE_FIELD);
+                    Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+                    if(status.equalsIgnoreCase(Config.RESPONSE_STATUS_VALUE_SUCCESS)) {
+                        finish();
+                    }
+                }
+                catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        };
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.networkResponse != null) {
+                    int statusCode = error.networkResponse.statusCode;
+                    String errorInfo1 = error.getMessage();
+                    String errorInfo2 = error.getLocalizedMessage();
+                    Log.d(TAG, "onError: " + error);
+                    Log.d(TAG, "onError code: " + statusCode);
+                    Log.d(TAG, "onError code: " + errorInfo1);
+                    Log.d(TAG, "onError code: " + errorInfo2);
+                }
+                Toast.makeText(mContext, "Terjadi kesalahan", Toast.LENGTH_SHORT).show();
+            }
+        };
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, responseListener, errorListener) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return params;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/x-www-form-urlencoded");
+                headers.put("auth-token", mUserToken);
+                return headers;
+            }
+            @Override
+            public RetryPolicy getRetryPolicy() {
+                return Config.getRetryPolicy();
+            }
+        };
+        Volley.newRequestQueue(this).add(stringRequest);
     }
 
 
@@ -118,7 +193,7 @@ public class PosyanduFormActivity extends AppCompatActivity {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String responseString) {
-                Log.d(TAG, "doLogin.onResponse : " + responseString);
+                Log.d(TAG, "doSubmit.onResponse : " + responseString);
                 JSONObject response = null;
                 try {
                     response = new JSONObject(responseString);

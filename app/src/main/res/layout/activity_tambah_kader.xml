@@ -167,6 +167,29 @@
             app:layout_constraintBottom_toTopOf="@+id/editTextPhone"
             app:layout_constraintStart_toStartOf="@+id/editTextPhone" />
 
+        <Spinner
+            android:id="@+id/spnPosyandu"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/background_edittext"
+            android:ems="10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPhone"
+            />
+
+        <TextView
+            android:id="@+id/tvX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Posyandu"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/spnPosyandu"
+            app:layout_constraintStart_toStartOf="@+id/spnPosyandu" />
+
         <Button
             android:id="@+id/button4"
             android:layout_width="200dp"
@@ -177,7 +200,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
+            app:layout_constraintTop_toBottomOf="@+id/spnPosyandu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

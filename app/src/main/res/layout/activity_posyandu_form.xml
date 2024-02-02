@@ -79,7 +79,6 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/background_edittext"
             android:ems="10"
-            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etNama" />
